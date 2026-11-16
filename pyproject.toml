@@ -1,0 +1,24 @@
+[project]
+name = "nano-longlive"
+version = "0.1.0"
+description = "An educational reimplementation of LongLive 2.0"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    # PyTorch has no Intel macOS builds after 2.2.2, so Intel Macs get 2.2.2
+    # (built against NumPy 1, hence numpy<2) and everything else gets 2.8.0.
+    "torch==2.2.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "numpy>=1.26,<2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "torch==2.8.0; sys_platform != 'darwin' or platform_machine != 'x86_64'",
+    "diffusers==0.31.0",
+    "transformers==4.49.0",
+    "einops>=0.8,<0.9",
+    "ftfy>=6,<7",
+    "sentencepiece>=0.2,<0.3",
+    # Only needed to import the official pipeline in scripts/compare_reference.py.
+    "omegaconf==2.3.0",
+    "torchvision==0.17.2 ; platform_machine == 'x86_64' and sys_platform == 'darwin'",
+    "torchvision==0.23.0 ; platform_machine != 'x86_64' or sys_platform != 'darwin'",
+]
+
+[tool.uv]
+package = false  # an application run from the repo root, not an installable package
